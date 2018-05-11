@@ -15,13 +15,13 @@ namespace HoloToolkit.Unity.InputModule
     /// </summary>
     public class AttachToController : MonoBehaviour
     {
-       // public InteractionSourceHandedness Handedness { get { return handedness; } }
+       public InteractionSourceHandedness Handedness { get { return handedness; } }
 
         public MotionControllerInfo.ControllerElementEnum Element { get { return element; } }
 
         [Header("AttachToController Elements")]
-       // [SerializeField]
-       // protected InteractionSourceHandedness handedness = InteractionSourceHandedness.Left;
+        [SerializeField]
+        protected InteractionSourceHandedness handedness = InteractionSourceHandedness.Left;
 
         [SerializeField]
         protected MotionControllerInfo.ControllerElementEnum element = MotionControllerInfo.ControllerElementEnum.PointingPose;
@@ -86,8 +86,8 @@ namespace HoloToolkit.Unity.InputModule
 
         private void AttachElementToController(MotionControllerInfo newController)
         {
-          //  if (!IsAttached && newController.Handedness == handedness)
-          //  {
+            if (!IsAttached && newController.Handedness == handedness)
+            {
                 if (!newController.TryGetElement(element, out elementTransform))
                 {
                     Debug.LogError("Unable to find element of type " + element + " under controller " + newController.ControllerParent.name + "; not attaching.");
@@ -111,13 +111,13 @@ namespace HoloToolkit.Unity.InputModule
                 OnAttachToController();
 
                 IsAttached = true;
-          //  }
+            }
         }
 
         private void DetachElementFromController(MotionControllerInfo oldController)
         {
-           // if (IsAttached && oldController.Handedness == handedness)
-           // {
+            if (IsAttached && oldController.Handedness == handedness)
+            {
                 OnDetachFromController();
 
                 controller = null;
@@ -126,7 +126,7 @@ namespace HoloToolkit.Unity.InputModule
                 SetChildrenActive(false);
 
                 IsAttached = false;
-          //  }
+            }
         }
 
         private void SetChildrenActive(bool isActive)
