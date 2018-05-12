@@ -18,9 +18,14 @@ public class Bullet : MonoBehaviour {
 	void Update () {
         if (wind != null)
         { WindEffect(); }
-     
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0) { Destroy(this.gameObject); }
+        if ( transform.position.y < -10)
+        { lifeTime = 1; }
+
+        if (lifeTime != -1)
+        { lifeTime -= Time.deltaTime; }
+        
+        if (lifeTime <= 0 && lifeTime != -1) { Destroy(this.gameObject); }
+       // Debug.Log("bullete vel " + rb.velocity.magnitude);
 	}
 
     public void WindEffect()
@@ -28,4 +33,14 @@ public class Bullet : MonoBehaviour {
         windDirection = wind.GetComponent<Wind>().windDirection;
         rb.AddForce((windDirection) * windSpeed);
     }
+
+
+
+    public void OnCollisionEnter(Collision collision)
+    {
+
+        if (lifeTime == -1 )
+        { lifeTime = 1; }
+    }
+
 }
